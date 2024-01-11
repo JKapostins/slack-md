@@ -35,6 +35,9 @@ with open('page_content.md', 'a', encoding='utf-8') as file:
     while time.time() < end_time:
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_UP)
         time.sleep(0.5)
+        with open('page_content.html', 'a', encoding='utf-8') as html_file:
+            content_element_html = driver.find_element(By.CSS_SELECTOR, content_selector).get_attribute('outerHTML')
+            html_file.write(content_element_html + "\n\n---\n\n")
         # Find and click buttons with the specified selector
         # buttons = driver.find_elements(By.CSS_SELECTOR, 'button')
         # for button in buttons:
