@@ -39,7 +39,8 @@ with open('page_content.txt', 'a', encoding='utf-8') as file:
         buttons = driver.find_elements(By.CSS_SELECTOR, 'button')
         for button in buttons:
             try:
-                if 'c-message__reply_bar' in button.get_attribute('class'):
+                #\31 704944089\.846389 > div > div > div > div > div.c-message_kit__gutter__right > div.c-message__reply_bar.c-message_kit__thread_replies.c-message__reply_bar--progressive-disclosure-tip-wrapper-ia4 > button
+                if 'c-message__reply_count' in button.get_attribute('class'):
                     driver.execute_script("arguments[0].click();", button)
             except Exception as e:
                 print(f"Error clicking button: {e}")
