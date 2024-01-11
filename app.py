@@ -46,9 +46,9 @@ with open('page_content.txt', 'a', encoding='utf-8') as file:
                     driver.execute_script("arguments[0].click();", button)
                     # Wait for the side panel to open
                     WebDriverWait(driver, 10).until(
-                        EC.visibility_of_element_located((By.CSS_SELECTOR, '#C01RSNX4WQ3-1704944089\\.846389-thread-list-Thread > div.c-scrollbar__hider'))
+                        EC.visibility_of_element_located((By.CSS_SELECTOR, 'div.c-scrollbar__hider'))
                     )
-                    side_panel = driver.find_element(By.CSS_SELECTOR, '#C01RSNX4WQ3-1704944089\\.846389-thread-list-Thread > div.c-scrollbar__hider')
+                    side_panel = driver.find_element(By.CSS_SELECTOR, 'div.c-scrollbar__hider')
                     # Scroll down the side panel and load more content
                     last_height = driver.execute_script("return arguments[0].scrollHeight", side_panel)
                     while True:
