@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from bs4 import BeautifulSoup
 from markdownify import markdownify as md
 import json
 import time
@@ -23,6 +24,21 @@ with open('cookies.json', 'r') as cookiesfile:
         if 'expiry' in formatted_cookie:
             formatted_cookie['expiry'] = int(formatted_cookie['expiry'])
         driver.add_cookie(formatted_cookie)
+
+def convert_html_to_markdown(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    markdown_content = ''
+    for element in soup.find_all(class_='c-virtual_list__item'):
+        # Add a new line before each c-virtual_list__item element
+        markdown_content += '\n\n'
+        # Convert the HTML of the current element to Markdown
+        markdown_content += md(str(element), heading_style="ATX")
+    return markdown_content
+
+# Additional code or modifications can go here
+
+# For example, if you need to define more functions or classes,
+# you can do so below.
 
 # Navigate to the specific Slack workspace URL
 driver.get('https://app.slack.com/client/T0ELQUJE4/C01RSNX4WQ3')
@@ -237,6 +253,6 @@ with open('page_content.md', 'a', encoding='utf-8') as file:
             # Format the extracted data into Markdown
             markdown_content = f"### {user_name}  [{timestamp}]\n\n{message_text}\n\n---\n\n"
 
-        markdown_content = md(content_element_html)
+        markdown_content = convert_html_to_markdown(content_element_html)
         file.write(markdown_content + "\n\n---\n\n")
         break
