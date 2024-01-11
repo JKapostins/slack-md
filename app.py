@@ -31,10 +31,13 @@ time.sleep(5)
 # Scroll up for 30 seconds and save content to a text file
 content_selector = 'body > div.p-client_container > div > div > div.p-client_workspace_wrapper > div.p-client_workspace > div.p-client_workspace__layout > div:nth-child(2) > div:nth-child(2) > div > div > div.p-file_drag_drop__container > div.p-workspace__primary_view_body > div > div:nth-child(3) > div > div > div.c-scrollbar__hider'
 end_time = time.time() + 30
-with open('page_content.txt', 'a') as file:
-    while time.time() < end_time:
-        content_element = driver.find_element(By.CSS_SELECTOR, content_selector)
-        file.write(content_element.text + "\n\n---\n\n")
-        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_UP)
-        time.sleep(0.5)
+content = ""
+while time.time() < end_time:
+    driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_UP)
+    time.sleep(0.5)
+content_element = driver.find_element(By.CSS_SELECTOR, content_selector)
+content += content_element.text + "\n\n---\n\n"
+
+with open('page_content.txt', 'w') as file:
+    file.write(content)
     time.sleep(0.5) 
