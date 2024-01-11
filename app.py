@@ -223,14 +223,20 @@ with open('page_content.md', 'a', encoding='utf-8') as file:
         #             </div>
         #         </div>
         #     </div>
+
+        # After obtaining content_element_html from Selenium
         soup = BeautifulSoup(content_element_html, 'html.parser')
-        markdown_content = ''
-        for element in soup.find_all(True, recursive=False):
-            if 'c-virtual_list__item' in element.get('class', []):
-                markdown_content += '\n\n'  # Add extra newline before each c-virtual_list__item
-            element_html = str(element)
-            element_markdown = md(element_html)
-            markdown_content += element_markdown
-        markdown_content += '\n\n'
+
+        # Example of extracting message elements - this will need to be customized
+        for message in soup.select('.c-virtual_list__item'):
+            # Extract user name, timestamp, message text, etc.
+            user_name = message.select_one('.c-message__sender').get_text(strip=True)
+            timestamp = message.select_one('.c-timestamp__label').get_text(strip=True)
+            message_text = message.select_one('.c-message__message_blocks').get_text(strip=True)
+
+            # Format the extracted data into Markdown
+            markdown_content = f"### {user_name}  [{timestamp}]\n\n{message_text}\n\n---\n\n"
+
+        markdown_content = md(content_element_html)
         file.write(markdown_content + "\n\n---\n\n")
         break
