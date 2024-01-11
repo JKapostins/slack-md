@@ -49,6 +49,14 @@ with open('page_content.md', 'a', encoding='utf-8') as file:
         #     except Exception as e:
         #         print(f"Error clicking button: {e}")
         content_element_html = driver.find_element(By.CSS_SELECTOR, content_selector).get_attribute('outerHTML')
-        markdown_content = md(content_element_html)
+        soup = BeautifulSoup(content_element_html, 'html.parser')
+        markdown_content = ''
+        for element in soup:
+            if 'c-virtual_list__item' in element.get('class', []):
+                markdown_content += '\n\n'
+            element_markdown = md(str(element))
+            markdown_content += element_markdown
+        markdown_content += '\n\n'
+
         file.write(markdown_content + "\n\n---\n\n")
         break
