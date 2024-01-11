@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 import json
 import time
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 # Initialize WebDriver with options
 options = webdriver.ChromeOptions()
@@ -27,8 +28,13 @@ driver.get('https://app.slack.com/client/T0ELQUJE4/C01RSNX4WQ3')
 
 # Proceed with automation tasks...
 # Scroll up for 30 seconds
-# Scroll up for 30 seconds
+# Scroll up for 30 seconds and save content to a text file
+content_selector = 'body > div.p-client_container > div > div > div.p-client_workspace_wrapper > div.p-client_workspace > div.p-client_workspace__layout > div:nth-child(2) > div:nth-child(2) > div > div > div.p-file_drag_drop__container > div.p-workspace__primary_view_body > div > div:nth-child(3) > div > div > div.c-scrollbar__hider'
 end_time = time.time() + 30
-while time.time() < end_time:
-    driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_UP)
+with open('page_content.txt', 'a') as file:
+    while time.time() < end_time:
+        content_element = driver.find_element(By.CSS_SELECTOR, content_selector)
+        file.write(content_element.text + "\n\n---\n\n")
+        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_UP)
+        time.sleep(0.5)
     time.sleep(0.5) 
