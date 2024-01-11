@@ -26,6 +26,7 @@ with open('cookies.json', 'r') as cookiesfile:
 
 # Navigate to the specific Slack workspace URL
 driver.get('https://app.slack.com/client/T0ELQUJE4/C01RSNX4WQ3')
+time.sleep(5)
 # Proceed with automation tasks...
 # Scroll up for 30 seconds
 # Scroll up for 30 seconds and save content to a text file
@@ -50,3 +51,4 @@ with open('page_content.md', 'a', encoding='utf-8') as file:
         content_element_html = driver.find_element(By.CSS_SELECTOR, content_selector).get_attribute('outerHTML')
         markdown_content = md(content_element_html)
         file.write(markdown_content + "\n\n---\n\n")
+        break
