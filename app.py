@@ -12,7 +12,7 @@ driver = webdriver.Chrome(options=options)
 
 # Navigate to a base domain of Slack
 driver.get('https://slack.com/')
-
+time.sleep(5)
 # Load and add cookies
 with open('cookies.json', 'r') as cookiesfile:
     cookies = json.load(cookiesfile)
