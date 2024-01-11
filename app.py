@@ -223,6 +223,14 @@ with open('page_content.md', 'a', encoding='utf-8') as file:
         #             </div>
         #         </div>
         #     </div>
-        markdown_content = md(content_element_html)
+        soup = BeautifulSoup(content_element_html, 'html.parser')
+        markdown_content = ''
+        for element in soup.find_all(True, recursive=False):
+            if 'c-virtual_list__item' in element.get('class', []):
+                markdown_content += '\n\n'  # Add extra newline before each c-virtual_list__item
+            element_html = str(element)
+            element_markdown = md(element_html)
+            markdown_content += element_markdown
+        markdown_content += '\n\n'
         file.write(markdown_content + "\n\n---\n\n")
         break
