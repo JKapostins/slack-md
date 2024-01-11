@@ -6,7 +6,7 @@ import json
 # Initialize WebDriver with options
 options = webdriver.ChromeOptions()
 options.add_argument("--start-maximized")
-driver = webdriver.Chrome(chrome_options=options, executable_path='/chrome-win64/chrome.exe')
+driver = webdriver.Chrome(options=options, executable_path='/chrome-win64/chrome.exe')
 
 # Navigate to the website (required before setting cookies)
 # Now the browser should be authenticated, and you can proceed with your automation script
