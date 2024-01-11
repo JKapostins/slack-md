@@ -1,7 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import json
 import time
 from selenium.webdriver.common.keys import Keys
@@ -44,26 +42,9 @@ with open('page_content.txt', 'a', encoding='utf-8') as file:
                 #\31 704944089\.846389 > div > div > div > div > div.c-message_kit__gutter__right > div.c-message__reply_bar.c-message_kit__thread_replies.c-message__reply_bar--progressive-disclosure-tip-wrapper-ia4 > button
                 if 'c-message__reply_count' in button.get_attribute('class'):
                     driver.execute_script("arguments[0].click();", button)
-                    # Wait for the side panel to open
-                    WebDriverWait(driver, 10).until(
-                        EC.visibility_of_element_located((By.CSS_SELECTOR, 'div.c-scrollbar__hider'))
-                    )
-                    side_panel = driver.find_element(By.CSS_SELECTOR, 'div.c-scrollbar__hider')
-                    # Scroll down the side panel and load more content
-                    last_height = driver.execute_script("return arguments[0].scrollHeight", side_panel)
-                    while True:
-                        driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", side_panel)
-                        time.sleep(1)  # Wait to load content
-                        new_height = driver.execute_script("return arguments[0].scrollHeight", side_panel)
-                        if new_height == last_height:
-                            break
-                        last_height = new_height
-                    # Copy the side panel content into the file
-                    file.write(side_panel.text + "\n\n---\n\n")
             except Exception as e:
                 print(f"Error clicking button: {e}")
         content_element = driver.find_element(By.CSS_SELECTOR, content_selector)
         file.write(content_element.text + "\n\n---\n\n")
-    time.sleep(0.5)
     time.sleep(0.5)
     time.sleep(0.5) 
