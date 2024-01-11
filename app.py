@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from markdownify import markdownify as md
 import json
 import time
 from selenium.webdriver.common.keys import Keys
@@ -44,7 +45,8 @@ with open('page_content.txt', 'a', encoding='utf-8') as file:
                     driver.execute_script("arguments[0].click();", button)
             except Exception as e:
                 print(f"Error clicking button: {e}")
-        content_element = driver.find_element(By.CSS_SELECTOR, content_selector)
-        file.write(content_element.text + "\n\n---\n\n")
+        content_element_html = driver.find_element(By.CSS_SELECTOR, content_selector).get_attribute('outerHTML')
+        markdown_content = md(content_element_html)
+        file.write(markdown_content + "\n\n---\n\n")
     time.sleep(0.5)
     time.sleep(0.5) 
