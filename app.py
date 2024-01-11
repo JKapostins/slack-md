@@ -35,6 +35,15 @@ with open('page_content.txt', 'a', encoding='utf-8') as file:
     while time.time() < end_time:
         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_UP)
         time.sleep(0.5)
+        # Find and click buttons with the specified selector
+        buttons = driver.find_elements(By.CSS_SELECTOR, 'button')
+        for button in buttons:
+            try:
+                if 'c-message__reply_bar' in button.get_attribute('class'):
+                    driver.execute_script("arguments[0].click();", button)
+            except Exception as e:
+                print(f"Error clicking button: {e}")
         content_element = driver.find_element(By.CSS_SELECTOR, content_selector)
         file.write(content_element.text + "\n\n---\n\n")
+    time.sleep(0.5)
     time.sleep(0.5) 
