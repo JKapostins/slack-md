@@ -12,6 +12,18 @@ pip install -r requirements.txt
 
 Make sure you have Python and `pip` installed on your system before running the above command.
 
+## ChromeDriver Installation
+
+The Slack Channel Archiver uses Selenium, which requires ChromeDriver to interact with the Chrome browser. You must install ChromeDriver that matches the version of Chrome installed on your system. Follow these steps to install ChromeDriver:
+
+1. Check the version of Chrome installed on your system by navigating to `chrome://version/` in your Chrome browser.
+2. Visit the [ChromeDriver download page](https://sites.google.com/a/chromium.org/chromedriver/downloads).
+3. Download the version of ChromeDriver that corresponds to your Chrome version.
+4. Extract the downloaded file and place `chromedriver` in a known location on your system.
+5. Add the location of `chromedriver` to your system's PATH environment variable so that it can be accessed from the command line.
+
+After installing ChromeDriver, you can proceed with running the `app.py` script as described in the Usage section.
+
 ## Usage
 
 After installing the dependencies, you can run the `app.py` script to start the archiving process. The script will navigate through the Slack workspace, download files, and convert the content into markdown format.
