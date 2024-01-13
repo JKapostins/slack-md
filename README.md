@@ -37,6 +37,17 @@ Before running the script, ensure you have the necessary authentication cookies 
 To create the `cookies.json` file, you can use the EditThisCookie browser extension, which is available for Chrome and other browsers. Follow these steps:
 
 1. Install the EditThisCookie extension from your browser's extension store.
+2. Navigate to your Slack workspace in the browser and sign in.
+3. Select the channel you wish to archive.
+4. Copy the URL of the selected channel; you will use this as input into `app.py`.
+5. After you are signed in, navigate to `https://slack.com` to ensure you are on the main Slack domain.
+6. Click on the EditThisCookie extension icon in your browser toolbar.
+7. In the EditThisCookie panel, click the export button to copy all cookies to your clipboard.
+8. Paste the copied cookies into a new file and save it as `cookies.json` in the same directory as your `app.py` script.
+
+**Warning:** You must export the cookies from `https://slack.com` and not your Slack workspace URL to avoid a domain mismatch error when loading the cookies in the script.
+
+1. Install the EditThisCookie extension from your browser's extension store.
 2. Log in to your Slack workspace in the browser.
 3. Click on the EditThisCookie extension icon in your browser toolbar.
 4. In the EditThisCookie panel, click the export button to copy all cookies to your clipboard.
